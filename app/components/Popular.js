@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { fetchPopularRepos } from '../utils/api'
 
 function LanguagesNav ({ selected, onUpdateLanguage }) {
   const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python']
@@ -28,17 +29,42 @@ LanguagesNav.propTypes = {
 
 export default class Popular extends Component {
   state = {
-    selected: 'All'
+    selected: 'All',
+    repos: null,
+    error: null
+  }
+
+  componentDidMount() {
+    this.updateLanguage(this.state.selected)
   }
 
   updateLanguage = (selected) => {
     this.setState({
-      selected
+      selected,
+      repos: null,
+      error: null
     })
+
+    fetchPopularRepos(selected)
+      .then((data) => this.setState({
+        repos: data,
+        error: null
+      }))
+      .catch(({ message }) => {
+        console.warn(message)
+
+        this.setState({
+          error: 'Error fetching the repos.'
+        })
+      })
+  }
+
+  isLoading = () => {
+    return !this.state.repos && !this.state.error
   }
 
   render() {
-    const { selected } = this.state
+    const { selected, repos, error } = this.state
 
     return (
       <>
@@ -46,6 +72,9 @@ export default class Popular extends Component {
           selected={selected}
           onUpdateLanguage={this.updateLanguage}
         />
+        {error && <p className='center-text error-msg'>{error}</p>}
+        {this.isLoading() && <p className='center-text'>Loading...</p>}
+        {repos && <pre>{JSON.stringify(repos, null, 2)}</pre>}
       </>
     )
   }
