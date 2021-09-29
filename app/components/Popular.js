@@ -30,7 +30,7 @@ LanguagesNav.propTypes = {
 export default class Popular extends Component {
   state = {
     selected: 'All',
-    repos: null,
+    repos: {},
     error: null
   }
 
@@ -41,26 +41,33 @@ export default class Popular extends Component {
   updateLanguage = (selected) => {
     this.setState({
       selected,
-      repos: null,
       error: null
     })
 
-    fetchPopularRepos(selected)
-      .then((data) => this.setState({
-        repos: data,
-        error: null
-      }))
-      .catch(({ message }) => {
-        console.warn(message)
-
-        this.setState({
-          error: 'Error fetching the repos.'
+    if (!this.state.repos[selected]) {
+      fetchPopularRepos(selected)
+        .then((data) => {
+          this.setState(({ repos }) => ({
+            repos: {
+              ...repos,
+              [selected]: data
+            },
+            error: null
+          }))
         })
-      })
+        .catch(({ message }) => {
+          console.warn(message)
+
+          this.setState({
+            error: 'Error fetching the repos.'
+          })
+        })
+    }
   }
 
   isLoading = () => {
-    return !this.state.repos && !this.state.error
+    const { selected, repos, error } = this.state
+    return !repos[selected] && !error
   }
 
   render() {
@@ -74,7 +81,7 @@ export default class Popular extends Component {
         />
         {error && <p className='center-text error-msg'>{error}</p>}
         {this.isLoading() && <p className='center-text'>Loading...</p>}
-        {repos && <pre>{JSON.stringify(repos, null, 2)}</pre>}
+        {repos[selected] && <pre>{JSON.stringify(repos[selected], null, 2)}</pre>}
       </>
     )
   }
