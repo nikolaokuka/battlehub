@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-export default class App extends React.Component {
+import Popular from './components/Popular'
+
+class App extends Component {
   render() {
     return (
-      <h1>Github Battle</h1>
+      <div className='container'>
+        <Popular />
+      </div>
     )
   }
 }
