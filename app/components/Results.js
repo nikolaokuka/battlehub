@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { battle } from '../utils/api'
 import PropTypes from 'prop-types'
+
 import Card from './Card'
 import ProfileList from './ProfileList'
+import Loading from './Loading'
 
 export default class Results extends Component {
   static propTypes = {
@@ -42,7 +44,7 @@ export default class Results extends Component {
     const { winner, loser, error, loading } = this.state
 
     if (loading) {
-      return <p className='center-text'>LOADING</p>
+      return <Loading text='Battling' />
     }
 
     if (error) {
