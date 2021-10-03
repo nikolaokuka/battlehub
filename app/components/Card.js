@@ -32,5 +32,6 @@ Card.propTypes = {
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   score: PropTypes.string,
+  name: PropTypes.string,
   href: PropTypes.string.isRequired,
 }
