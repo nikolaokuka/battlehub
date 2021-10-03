@@ -7,7 +7,8 @@ import ProfileList from './ProfileList'
 export default class Results extends Component {
   static propTypes = {
     playerOne: PropTypes.string.isRequired,
-    playerTwo: PropTypes.string.isRequired
+    playerTwo: PropTypes.string.isRequired,
+    onReset: PropTypes.func.isRequired,
   }
 
   state = {
@@ -49,27 +50,35 @@ export default class Results extends Component {
     }
 
     return (
-      <div className='grid space-around container-sm'>
-        <Card
-          header={winner.score === loser.score ? 'Tie' : 'Winner'}
-          avatar={winner.profile.avatar_url}
-          login={winner.profile.login}
-          score={winner.score.toLocaleString()}
-          href={winner.profile.html_url}
-        >
-          <ProfileList profile={winner.profile} />
-        </Card>
+      <>
+        <div className='grid space-around container-sm'>
+          <Card
+            header={winner.score === loser.score ? 'Tie' : 'Winner'}
+            avatar={winner.profile.avatar_url}
+            login={winner.profile.login}
+            score={winner.score.toLocaleString()}
+            href={winner.profile.html_url}
+          >
+            <ProfileList profile={winner.profile} />
+          </Card>
 
-        <Card
-          header={winner.score === loser.score ? 'Tie' : 'Loser'}
-          avatar={loser.profile.avatar_url}
-          name={loser.profile.login}
-          score={loser.score.toLocaleString()}
-          href={loser.profile.html_url}
+          <Card
+            header={winner.score === loser.score ? 'Tie' : 'Loser'}
+            avatar={loser.profile.avatar_url}
+            name={loser.profile.login}
+            score={loser.score.toLocaleString()}
+            href={loser.profile.html_url}
+          >
+            <ProfileList profile={loser.profile} />
+          </Card>
+        </div>
+        <button
+          className='btn btn-dark btn-space'
+          onClick={this.props.onReset}
         >
-          <ProfileList profile={loser.profile} />
-        </Card>
-      </div>
+          Reset
+        </button>
+      </>
     )
   }
 }
