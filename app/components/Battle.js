@@ -176,7 +176,7 @@ export default class Battle extends Component {
               className='btn btn-dark btn-space'
               onClick={() => this.setState({ battle: true })}
             >
-              Reset
+              Battle
             </button>
           }
         </div>
