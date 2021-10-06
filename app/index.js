@@ -11,7 +11,7 @@ import { ThemeProvider } from './contexts/theme'
 class App extends Component {
   state = {
     theme: 'light',
-    toogleTheme: () => {
+    toggleTheme: () => {
       this.setState(({ theme }) => ({
         theme: theme === 'light' ? 'dark' : 'light'
       }))
@@ -25,7 +25,7 @@ class App extends Component {
           <div className='container'>
             <Nav />
 
-            <Battle />
+            <Popular />
           </div>
         </div>
       </ThemeProvider>
