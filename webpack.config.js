@@ -5,12 +5,14 @@ module.exports = {
   entry: './app/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index_bundle.js'
+    filename: 'index_bundle.js',
+    publicPath: '/'
   },
   devtool: 'inline-source-map',
   devServer: {
     port: 3000,
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
