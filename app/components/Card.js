@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ThemeConsumer, ThemeProvider } from '../contexts/theme'
+import { ThemeConsumer } from '../contexts/theme'
 
 export default function Card ({ header, avatar, login, name, score, href, children }) {
   return (
     <ThemeConsumer>
-      {({ theme }) => (
+      {(theme) => (
         <div className={`card bg-${theme}`}>
           <h4 className='header-lg center-text'>
             {header}

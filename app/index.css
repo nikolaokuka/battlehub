@@ -37,6 +37,7 @@ li {
 .btn-clear {
   border: none;
   background: transparent;
+  cursor: pointer;
 }
 
 .nav-link {
@@ -44,6 +45,7 @@ li {
   font-weight: bold;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 .nav li {
